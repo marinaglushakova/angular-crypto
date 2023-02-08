@@ -20,18 +20,22 @@
         class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap">
         <span
           #prompt
-          *ngFor="let ticker of promptList"
+          *ngFor="let ticker of promptList | slice:0:4"
           (click)="onPromptClick(prompt)"
           class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
           {{ticker}}
         </span>
       </div>
       <div
+        *ngIf="!isExist"
+        class="text-sm text-red-600">Такой криптовалюты не существует</div>
+      </div>
+      <div
         *ngIf="isAdded"
         class="text-sm text-red-600">Такой тикер уже добавлен</div>
-    </div>
-  </div>
+      </div>
   <button
+    (click)="onAddButtonClick()"
     type="button"
     class="my-4 inline-flex items-center py-2 px-4 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-full text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
   >

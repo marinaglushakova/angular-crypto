@@ -8,6 +8,7 @@ import { CryptoListComponent } from './components/crypto-list/crypto-list.compon
 import { AddTickerComponent } from './components/add-ticker/add-ticker.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     GraphComponent,
     LoaderComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

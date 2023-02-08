@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-crypto-list',
   templateUrl: './crypto-list.component.html',
 })
-export class CryptoListComponent {}
+export class CryptoListComponent {
+  isSelected = true;
+}
