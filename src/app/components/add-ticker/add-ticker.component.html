@@ -6,6 +6,8 @@
       >
       <div class="mt-1 relative rounded-md shadow-md">
         <input
+          [ngModel]="inputTicker"
+          (ngModelChange)="inputTicker = $event.toUpperCase(); onInput($event)"
           type="text"
           name="wallet"
           id="wallet"
@@ -13,21 +15,20 @@
           placeholder="Например DOGE"
         />
       </div>
-      <div class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap">
-        <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-          BTC
-        </span>
-        <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-          DOGE
-        </span>
-        <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-          BCH
-        </span>
-        <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-          CHD
+      <div
+        *ngIf="promptList.length > 0"
+        class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap">
+        <span
+          #prompt
+          *ngFor="let ticker of promptList"
+          (click)="onPromptClick(prompt)"
+          class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
+          {{ticker}}
         </span>
       </div>
-      <div class="text-sm text-red-600">Такой тикер уже добавлен</div>
+      <div
+        *ngIf="isAdded"
+        class="text-sm text-red-600">Такой тикер уже добавлен</div>
     </div>
   </div>
   <button
