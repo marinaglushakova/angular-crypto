@@ -19,7 +19,6 @@ export class AddTickerComponent {
       this.clearState();
       return;
     }
-    this.isExist = this.checkIfTickerExists();
     this.promptList = this.fullTickersList.filter((name) =>
       name.includes(inputText)
     );
@@ -27,10 +26,12 @@ export class AddTickerComponent {
 
   onPromptClick(prompt: HTMLSpanElement) {
     this.inputTicker = prompt.innerText;
+    this.promptList = [];
   }
 
   onAddButtonClick() {
     if (!this.inputTicker) return;
+    this.isExist = this.checkIfTickerExists();
     this.isExist && this.addTickerEvent.emit(this.inputTicker);
     this.clearState();
   }

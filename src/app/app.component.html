@@ -3,10 +3,11 @@
   <div class="container">
     <app-add-ticker
       [fullTickersList]="fullTickersList"
-      (addTickerEvent)="addItem($event)"></app-add-ticker>
-    <hr class="w-full border-t border-gray-600 my-4" />
-    <app-crypto-list></app-crypto-list>
-    <hr class="w-full border-t border-gray-600 my-4" />
+      (addTickerEvent)="addItem($event)"
+    ></app-add-ticker>
+    <app-crypto-list
+      [addedTickerName]="addedTickerName"
+    ></app-crypto-list>
     <app-graph></app-graph>
   </div>
 </div>

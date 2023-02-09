@@ -9,16 +9,17 @@ import { TickersService } from './services/tickers.service';
 export class AppComponent implements OnInit {
   title = 'angular-crypto';
   fullTickersList: string[] = [];
+  addedTickerName = '';
 
   constructor(private tickersService: TickersService) {}
 
   ngOnInit(): void {
-    this.tickersService.getAll().subscribe((r: string[]) => {
-      this.fullTickersList = r;
+    this.tickersService.getAll().subscribe((tickers: string[]) => {
+      this.fullTickersList = tickers;
     });
   }
 
   addItem(ticker: string) {
-    console.log(ticker);
+    this.addedTickerName = ticker;
   }
 }
