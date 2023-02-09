@@ -1,6 +1,8 @@
 import {
   Component,
   Input,
+  Output,
+  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChange,
@@ -13,7 +15,9 @@ import { ITicker } from 'src/app/model/ticker';
 })
 export class CryptoListComponent implements OnInit, OnChanges {
   @Input() addedTickerName = '';
+  @Output() selectTickerEvent = new EventEmitter<string>();
   tickersList: ITicker[] = [];
+  selectedTicker = '';
 
   ngOnInit() {
     const savedTickers = localStorage.getItem('tickers-list');
@@ -41,7 +45,16 @@ export class CryptoListComponent implements OnInit, OnChanges {
     this.saveToLocalStorage();
   }
 
+  selectTicker(tickerToSelect: string) {
+    this.selectedTicker = tickerToSelect;
+    this.selectTickerEvent.emit(tickerToSelect);
+  }
+
   saveToLocalStorage() {
     localStorage.setItem('tickers-list', JSON.stringify(this.tickersList));
+  }
+
+  clearSelection() {
+    this.selectedTicker = '';
   }
 }

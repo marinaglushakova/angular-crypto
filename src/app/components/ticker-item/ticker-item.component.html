@@ -1,13 +1,16 @@
 <div
-    class="bg-white overflow-hidden shadow rounded-lg  cursor-pointer"
-    [ngClass]="{'border-purple-800': isSelected, 'border': isSelected, 'border-4': isSelected}"
+    (click)="onItemSelect()"
+    class="bg-white overflow-hidden shadow rounded-lg  cursor-pointer border border-4 border-gray-100"
+    [ngClass]="{'border-purple-800': isSelected, 'border-gray-100': !isSelected}"
   >
     <div class="px-4 py-5 sm:p-6 text-center">
       <dt class="text-sm font-medium text-gray-500 truncate">
-        {{ ticker.name }} - USD
+        {{ ticker.name }}
       </dt>
       <dd class="mt-1 text-3xl font-semibold text-gray-900">
-        {{ ticker.price }}
+        {{ ticker.price === '-' ?
+            ticker.price :
+            ticker.price | currency:'USD':'symbol':'1.1-2' }}
       </dd>
     </div>
     <div class="w-full border-t border-gray-200"></div>
