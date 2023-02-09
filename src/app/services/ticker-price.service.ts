@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, repeat } from 'rxjs';
 
 import { API_KEY, API_URL } from '../helpers/api-data';
-import { tick } from '@angular/core/testing';
 
 const API_PARAM = '/data/price';
 
@@ -21,6 +20,7 @@ export class TickerPriceService {
     url.searchParams.set('tsyms', 'USD');
 
     return this.http.get<any>(`${url.href}`).pipe(
+      repeat({ delay: 4000 }),
       map((rawData) => {
         return rawData.USD;
       })

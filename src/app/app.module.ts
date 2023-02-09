@@ -9,6 +9,7 @@ import { AddTickerComponent } from './components/add-ticker/add-ticker.component
 import { GraphComponent } from './components/graph/graph.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TickerItemComponent } from './components/ticker-item/ticker-item.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     AddTickerComponent,
     GraphComponent,
     LoaderComponent,
+    TickerItemComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],
