@@ -18,4 +18,10 @@ export class CryptoListComponent implements OnChanges {
     };
     this.tickersList.push(currentTicker);
   }
+
+  deleteTicker(tickerToDelete: string) {
+    this.tickersList = this.tickersList.filter(
+      (ticker) => ticker.name !== tickerToDelete
+    );
+  }
 }

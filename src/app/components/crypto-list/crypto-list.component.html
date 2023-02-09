@@ -3,5 +3,6 @@
   <app-ticker-item
     *ngFor="let ticker of tickersList"
     [ticker]="ticker"
+    (deleteTickerEvent)="deleteTicker($event)"
   ></app-ticker-item>
 </dl>
