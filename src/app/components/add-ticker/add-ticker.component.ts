@@ -1,17 +1,30 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-add-ticker',
   templateUrl: './add-ticker.component.html',
 })
-export class AddTickerComponent {
+export class AddTickerComponent implements AfterViewInit {
   @Input() inputTicker: string;
   @Input() fullTickersList: string[];
   @Output() addTickerEvent = new EventEmitter<string>();
+  @ViewChild('input') inputField: ElementRef;
 
   promptList: String[] = [];
   isAdded = false;
   isExist = true;
+
+  ngAfterViewInit() {
+    this.inputField.nativeElement.focus();
+  }
 
   onInput(event: InputEvent) {
     const inputText = event.toString().toUpperCase();
@@ -24,12 +37,20 @@ export class AddTickerComponent {
     );
   }
 
-  onPromptClick(prompt: HTMLSpanElement) {
-    this.inputTicker = prompt.innerText;
-    this.promptList = [];
+  onEnter() {
+    this.addTicker();
   }
 
   onAddButtonClick() {
+    this.addTicker();
+  }
+
+  onPromptClick(prompt: HTMLSpanElement) {
+    this.inputTicker = prompt.innerText;
+    this.inputField.nativeElement.focus();
+  }
+
+  addTicker() {
     if (!this.inputTicker) return;
     this.isExist = this.checkIfTickerExists();
     this.isExist && this.addTickerEvent.emit(this.inputTicker);

@@ -8,6 +8,8 @@
         <input
           [ngModel]="inputTicker"
           (ngModelChange)="inputTicker = $event.toUpperCase(); onInput($event)"
+          (keydown.enter)="onEnter()"
+          #input
           type="text"
           name="wallet"
           id="wallet"
