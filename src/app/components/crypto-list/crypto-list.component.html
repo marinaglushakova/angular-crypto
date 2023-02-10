@@ -1,7 +1,12 @@
 <hr *ngIf="tickersList.length > 0" class="w-full border-t border-gray-600 my-4" />
+<input
+  [(ngModel)]="filter"
+  type="text"
+  class="pr-10 border-gray-300 text-gray-900 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm rounded-md p-1.5"
+  placeholder="Фильтровать тикеры"/>
 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
   <app-ticker-item
-    *ngFor="let ticker of tickersList"
+    *ngFor="let ticker of tickersList | filterTickers: filter"
     [ticker]="ticker"
     [selectedTicker]="selectedTicker"
     (deleteTickerEvent)="deleteTicker($event)"

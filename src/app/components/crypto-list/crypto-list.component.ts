@@ -18,6 +18,7 @@ export class CryptoListComponent implements OnInit, OnChanges {
   @Output() selectTickerEvent = new EventEmitter<string>();
   tickersList: ITicker[] = [];
   selectedTicker = '';
+  filter = '';
 
   ngOnInit() {
     const savedTickers = localStorage.getItem('tickers-list');

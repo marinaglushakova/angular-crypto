@@ -10,6 +10,7 @@ import { GraphComponent } from './components/graph/graph.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TickerItemComponent } from './components/ticker-item/ticker-item.component';
+import { FilterTickersPipe } from './pipes/filter-tickers.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TickerItemComponent } from './components/ticker-item/ticker-item.compon
     GraphComponent,
     LoaderComponent,
     TickerItemComponent,
+    FilterTickersPipe,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],
