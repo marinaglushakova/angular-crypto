@@ -11,6 +11,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TickerItemComponent } from './components/ticker-item/ticker-item.component';
 import { FilterTickersPipe } from './pipes/filter-tickers.pipe';
+import { PaginateTickersPipe } from './pipes/paginate-tickers.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FilterTickersPipe } from './pipes/filter-tickers.pipe';
     LoaderComponent,
     TickerItemComponent,
     FilterTickersPipe,
+    PaginateTickersPipe,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],

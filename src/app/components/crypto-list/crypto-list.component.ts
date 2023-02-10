@@ -6,6 +6,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChange,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ITicker } from 'src/app/model/ticker';
 
@@ -17,10 +18,15 @@ export class CryptoListComponent implements OnInit, OnChanges {
   @Input() addedTickerName = '';
   @Output() selectTickerEvent = new EventEmitter<string>();
   tickersList: ITicker[] = [];
+  paginatedTickers: ITicker[] = [];
   selectedTicker = '';
   filter = '';
+  page = 1;
+  hasNextPage: false;
 
-  ngOnInit() {
+  constructor(private changeDetection: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
     const savedTickers = localStorage.getItem('tickers-list');
 
     if (savedTickers) {
@@ -28,34 +34,35 @@ export class CryptoListComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: { addedTickerName: SimpleChange }) {
+  ngOnChanges(changes: { addedTickerName: SimpleChange }): void {
     const tickerToSubscribe = changes.addedTickerName.currentValue;
     if (!tickerToSubscribe) return;
     const currentTicker = {
       name: tickerToSubscribe,
       price: '-',
     };
-    this.tickersList.push(currentTicker);
+    this.tickersList = [...this.tickersList, currentTicker];
+    this.changeDetection.detectChanges();
     this.saveToLocalStorage();
   }
 
-  deleteTicker(tickerToDelete: string) {
+  deleteTicker(tickerToDelete: string): void {
     this.tickersList = this.tickersList.filter(
       (ticker) => ticker.name !== tickerToDelete
     );
     this.saveToLocalStorage();
   }
 
-  selectTicker(tickerToSelect: string) {
+  selectTicker(tickerToSelect: string): void {
     this.selectedTicker = tickerToSelect;
     this.selectTickerEvent.emit(tickerToSelect);
   }
 
-  saveToLocalStorage() {
+  saveToLocalStorage(): void {
     localStorage.setItem('tickers-list', JSON.stringify(this.tickersList));
   }
 
-  clearSelection() {
+  clearSelection(): void {
     this.selectedTicker = '';
   }
 }
