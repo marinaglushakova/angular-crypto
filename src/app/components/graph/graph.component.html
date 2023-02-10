@@ -1,20 +1,16 @@
 <hr class="w-full border-t border-gray-600 my-4" />
 <section class="relative">
   <h3 class="text-lg leading-6 font-medium text-gray-900 my-8">
-    VUE - USD
+    {{ tickerToShow }} - USD
   </h3>
-  <div class="flex items-end border-gray-600 border-b border-l h-64">
+  <div
+    #graph
+    class="flex items-end border-gray-600 border-b border-l h-64">
     <div
-      class="bg-purple-800 border w-10 h-24"
-    ></div>
-    <div
-      class="bg-purple-800 border w-10 h-32"
-    ></div>
-    <div
-      class="bg-purple-800 border w-10 h-48"
-    ></div>
-    <div
-      class="bg-purple-800 border w-10 h-16"
+      *ngFor="let column of normalizedGraph"
+      #column
+      class="bg-purple-800 border w-10"
+      [ngStyle]="{'height.%': column}"
     ></div>
   </div>
   <button
