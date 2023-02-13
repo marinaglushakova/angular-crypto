@@ -2,12 +2,12 @@
   <app-loader></app-loader>
   <div class="container">
     <app-add-ticker
-      [fullTickersList]="fullTickersList"
       (addTickerEvent)="addItem($event)"
     ></app-add-ticker>
     <app-crypto-list
       [addedTickerName]="addedTickerName"
       (selectTickerEvent)="showGraph($event)"
+      (tickerIsAddedEvent)="this.onTickerIsAdded()"
     ></app-crypto-list>
     <app-graph
       *ngIf="selectedTicker"

@@ -27,14 +27,14 @@
           class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
           {{ticker}}
         </span>
-      </div>
-      <div
+        <div
         *ngIf="!isExist"
         class="text-sm text-red-600">Такой криптовалюты не существует</div>
       </div>
       <div
         *ngIf="isAdded"
-        class="text-sm text-red-600">Такой тикер уже добавлен</div>
+        class="text-sm w-full text-red-600">Такой тикер уже добавлен</div>
+      </div>
       </div>
   <button
     (click)="onAddButtonClick()"

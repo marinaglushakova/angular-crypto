@@ -26,12 +26,12 @@ export class TickerItemComponent implements OnInit, OnChanges {
 
   constructor(private tickerPriceService: TickerPriceService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSelected = this.selectedTicker === this.ticker.name;
     this.subscribeToPriceUpdate(this.ticker.name);
   }
 
-  ngOnChanges(changes: { selectedTicker: SimpleChange }) {
+  ngOnChanges(changes: { selectedTicker: SimpleChange }): void {
     this.isSelected = this.selectedTicker === this.ticker.name;
   }
 
@@ -43,12 +43,12 @@ export class TickerItemComponent implements OnInit, OnChanges {
       });
   }
 
-  onDeleteButtonClick() {
+  onDeleteButtonClick(): void {
     this.subscription.unsubscribe();
     this.deleteTickerEvent.emit(this.ticker.name);
   }
 
-  onItemSelect() {
+  onItemSelect(): void {
     this.isSelected = true;
     this.selectTickerEvent.emit(this.ticker.name);
   }

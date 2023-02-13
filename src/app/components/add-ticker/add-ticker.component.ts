@@ -6,7 +6,9 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  ApplicationRef,
 } from '@angular/core';
+import { TickersService } from 'src/app/services/tickers.service';
 
 @Component({
   selector: 'app-add-ticker',
@@ -14,19 +16,33 @@ import {
 })
 export class AddTickerComponent implements AfterViewInit {
   @Input() inputTicker: string;
-  @Input() fullTickersList: string[];
   @Output() addTickerEvent = new EventEmitter<string>();
   @ViewChild('input') inputField: ElementRef;
 
+  fullTickersList: string[] = [];
   promptList: String[] = [];
-  isAdded = false;
   isExist = true;
+  isAdded = false;
 
-  ngAfterViewInit() {
+  constructor(
+    private tickersService: TickersService,
+    private applicationRef: ApplicationRef
+  ) {}
+
+  ngOnInit(): void {
+    this.tickersService.getAll().subscribe((tickers: string[]) => {
+      this.fullTickersList = tickers;
+    });
+  }
+
+  ngAfterViewInit(): void {
     this.inputField.nativeElement.focus();
   }
 
-  onInput(event: InputEvent) {
+  onInput(event: InputEvent): void {
+    this.isExist = true;
+    this.isAdded = false;
+
     const inputText = event.toString().toUpperCase();
     if (!inputText) {
       this.clearState();
@@ -37,23 +53,26 @@ export class AddTickerComponent implements AfterViewInit {
     );
   }
 
-  onEnter() {
+  onEnter(): void {
     this.addTicker();
   }
 
-  onAddButtonClick() {
+  onAddButtonClick(): void {
     this.addTicker();
   }
 
-  onPromptClick(prompt: HTMLSpanElement) {
+  onPromptClick(prompt: HTMLSpanElement): void {
     this.inputTicker = prompt.innerText;
     this.inputField.nativeElement.focus();
   }
 
-  addTicker() {
+  addTicker(): void {
     if (!this.inputTicker) return;
     this.isExist = this.checkIfTickerExists();
     this.isExist && this.addTickerEvent.emit(this.inputTicker);
+    this.applicationRef.tick();
+
+    if (this.isAdded) return;
     this.clearState();
   }
 
@@ -65,7 +84,7 @@ export class AddTickerComponent implements AfterViewInit {
     );
   }
 
-  clearState() {
+  clearState(): void {
     this.inputTicker = '';
     this.promptList = [];
     this.isAdded = false;
