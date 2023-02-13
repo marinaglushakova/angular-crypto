@@ -10,6 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { TickersService } from 'src/app/services/tickers.service';
+import { AddedTickersService } from 'src/app/services/added-tickers.service';
 
 @Component({
   selector: 'app-add-ticker',
@@ -22,12 +23,13 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
 
   fullTickersList: string[] = [];
   promptList: String[] = [];
-  isExist = true;
+  isNotExist = false;
   isAdded = false;
 
   constructor(
     private tickersService: TickersService,
-    private applicationRef: ApplicationRef
+    private applicationRef: ApplicationRef,
+    public addedTickersService: AddedTickersService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
   }
 
   onInput(event: InputEvent): void {
-    this.isExist = true;
+    this.isNotExist = false;
     this.isAdded = false;
 
     const inputText = event.toString().toUpperCase();
@@ -69,11 +71,14 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
 
   addTicker(): void {
     if (!this.inputTicker) return;
-    this.isExist = this.checkIfTickerExists();
-    this.isExist && this.addTickerEvent.emit(this.inputTicker);
-    this.applicationRef.tick();
 
-    if (this.isAdded) return;
+    this.isNotExist = !this.checkIfTickerExists();
+    this.isAdded = this.addedTickersService.checkIfAdded(this.inputTicker);
+
+    if (this.isAdded || this.isNotExist) {
+      return;
+    }
+    this.addTickerEvent.emit(this.inputTicker);
     this.clearState();
   }
 
@@ -88,7 +93,7 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
   clearState(): void {
     this.inputTicker = '';
     this.promptList = [];
+    this.isNotExist = false;
     this.isAdded = false;
-    this.isExist = true;
   }
 }

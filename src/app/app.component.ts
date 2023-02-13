@@ -18,7 +18,6 @@ export class AppComponent {
   title = 'angular-crypto';
   addedTickerName = '';
   selectedTicker = '';
-  isAdded = false;
 
   addItem(ticker: string): void {
     this.addedTickerName = ticker;
@@ -31,9 +30,5 @@ export class AppComponent {
   onCloseGraph(): void {
     this.selectedTicker = '';
     this.cryptoListComponent.clearSelection();
-  }
-
-  onTickerIsAdded(): void {
-    this.addTickerComponent.isAdded = true;
   }
 }

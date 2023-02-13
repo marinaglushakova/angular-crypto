@@ -27,8 +27,8 @@
           class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
           {{ticker}}
         </span>
-        <div
-        *ngIf="!isExist"
+      <div
+        *ngIf="isNotExist"
         class="text-sm text-red-600">Такой криптовалюты не существует</div>
       </div>
       <div

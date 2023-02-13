@@ -8,7 +8,6 @@
     <app-crypto-list
       [addedTickerName]="addedTickerName"
       (selectTickerEvent)="showGraph($event)"
-      (tickerIsAddedEvent)="this.onTickerIsAdded()"
     ></app-crypto-list>
     <app-graph
       *ngIf="selectedTicker"
