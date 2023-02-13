@@ -7,6 +7,7 @@ import {
   ElementRef,
   AfterViewInit,
   ApplicationRef,
+  OnInit,
 } from '@angular/core';
 import { TickersService } from 'src/app/services/tickers.service';
 
@@ -14,7 +15,7 @@ import { TickersService } from 'src/app/services/tickers.service';
   selector: 'app-add-ticker',
   templateUrl: './add-ticker.component.html',
 })
-export class AddTickerComponent implements AfterViewInit {
+export class AddTickerComponent implements OnInit, AfterViewInit {
   @Input() inputTicker: string;
   @Output() addTickerEvent = new EventEmitter<string>();
   @ViewChild('input') inputField: ElementRef;
