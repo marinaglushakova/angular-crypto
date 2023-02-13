@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TickerItemComponent } from './components/ticker-item/ticker-item.component';
 import { FilterTickersPipe } from './pipes/filter-tickers.pipe';
 import { PaginateTickersPipe } from './pipes/paginate-tickers.pipe';
+import { GlobalErrorComponent } from './components/global-error/global-error.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PaginateTickersPipe } from './pipes/paginate-tickers.pipe';
     TickerItemComponent,
     FilterTickersPipe,
     PaginateTickersPipe,
+    GlobalErrorComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],

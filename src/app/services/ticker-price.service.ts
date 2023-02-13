@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable, repeat } from 'rxjs';
+import { Observable, repeat, throwError, catchError } from 'rxjs';
+import { ErrorService } from './error.service';
 
 import { API_KEY, API_URL } from '../helpers/api-data';
 
@@ -11,7 +12,7 @@ const API_PARAM = '/data/price';
   providedIn: 'root',
 })
 export class TickerPriceService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private errorService: ErrorService) {}
 
   getPrice(tickerName: string): Observable<number> {
     let url = new URL(API_PARAM, API_URL);
@@ -23,7 +24,13 @@ export class TickerPriceService {
       repeat({ delay: 4000 }),
       map((rawData) => {
         return rawData.USD;
-      })
+      }),
+      catchError(this.errorHandler.bind(this))
     );
+  }
+
+  private errorHandler(error: HttpErrorResponse) {
+    this.errorService.handle(error.message);
+    return throwError(() => error.message);
   }
 }
