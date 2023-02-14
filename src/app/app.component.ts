@@ -1,7 +1,6 @@
 import { Component, ViewChild, Input } from '@angular/core';
 import { CryptoListComponent } from './components/crypto-list/crypto-list.component';
 import { ITicker } from './model/ticker';
-import { AddTickerComponent } from './components/add-ticker/add-ticker.component';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +11,6 @@ export class AppComponent {
   @Input() addedTickersList: ITicker[];
   @ViewChild(CryptoListComponent)
   private cryptoListComponent!: CryptoListComponent;
-  @ViewChild(AddTickerComponent)
-  private addTickerComponent!: AddTickerComponent;
 
   title = 'angular-crypto';
   addedTickerName = '';

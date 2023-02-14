@@ -8,15 +8,17 @@ import {
   AfterViewInit,
   ApplicationRef,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { TickersService } from 'src/app/services/tickers.service';
 import { AddedTickersService } from 'src/app/services/added-tickers.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-ticker',
   templateUrl: './add-ticker.component.html',
 })
-export class AddTickerComponent implements OnInit, AfterViewInit {
+export class AddTickerComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() inputTicker: string;
   @Output() addTickerEvent = new EventEmitter<string>();
   @ViewChild('input') inputField: ElementRef;
@@ -25,6 +27,7 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
   promptList: String[] = [];
   isNotExist = false;
   isAdded = false;
+  subscription: Subscription;
 
   constructor(
     private tickersService: TickersService,
@@ -33,13 +36,19 @@ export class AddTickerComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.tickersService.getAll().subscribe((tickers: string[]) => {
-      this.fullTickersList = tickers;
-    });
+    this.subscription = this.tickersService
+      .getAll()
+      .subscribe((tickers: string[]) => {
+        this.fullTickersList = tickers;
+      });
   }
 
   ngAfterViewInit(): void {
     this.inputField.nativeElement.focus();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onInput(event: InputEvent): void {
