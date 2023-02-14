@@ -13,6 +13,9 @@ import { TickerItemComponent } from './components/ticker-item/ticker-item.compon
 import { FilterTickersPipe } from './pipes/filter-tickers.pipe';
 import { PaginateTickersPipe } from './pipes/paginate-tickers.pipe';
 import { GlobalErrorComponent } from './components/global-error/global-error.component';
+import { TickerSearchPageComponent } from './pages/ticker-search-page/ticker-search-page.component';
+import { AboutPageComponent } from './pages/about-page/about-page.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { GlobalErrorComponent } from './components/global-error/global-error.com
     FilterTickersPipe,
     PaginateTickersPipe,
     GlobalErrorComponent,
+    TickerSearchPageComponent,
+    AboutPageComponent,
+    NavigationComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [],

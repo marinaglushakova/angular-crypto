@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, repeat, throwError, catchError } from 'rxjs';
 import { ErrorService } from './error.service';
 
-import { API_KEY, API_URL } from '../helpers/api-data';
+import { API_KEY, API_URL } from '../consts/api-data';
 
 const API_PARAM = '/data/price';
 

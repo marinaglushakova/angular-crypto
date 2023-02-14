@@ -1,18 +1,6 @@
 <app-global-error></app-global-error>
-<div class="container mx-auto flex flex-col items-center bg-gray-100 p-4">
-  <app-loader></app-loader>
-  <div class="container">
-    <app-add-ticker
-      (addTickerEvent)="addItem($event)"
-    ></app-add-ticker>
-    <app-crypto-list
-      [addedTickerName]="addedTickerName"
-      (selectTickerEvent)="showGraph($event)"
-    ></app-crypto-list>
-    <app-graph
-      *ngIf="selectedTicker"
-      [tickerToShow]="selectedTicker"
-      (closeGraphEvent)="onCloseGraph()"
-    ></app-graph>
-  </div>
+<app-loader></app-loader>
+<app-navigation></app-navigation>
+<div class="container mx-auto mt-[50px] flex flex-col items-center bg-gray-100 p-4">
+  <router-outlet></router-outlet>
 </div>

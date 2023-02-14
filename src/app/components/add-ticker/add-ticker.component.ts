@@ -6,7 +6,6 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  ApplicationRef,
   OnInit,
   OnDestroy,
 } from '@angular/core';
@@ -31,7 +30,6 @@ export class AddTickerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private tickersService: TickersService,
-    private applicationRef: ApplicationRef,
     public addedTickersService: AddedTickersService
   ) {}
 
