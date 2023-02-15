@@ -1,4 +1,5 @@
 import { Component, ViewChild, Input } from '@angular/core';
+import { Subject } from 'rxjs';
 import { CryptoListComponent } from 'src/app/components/crypto-list/crypto-list.component';
 import { ITicker } from 'src/app/model/ticker';
 
@@ -15,6 +16,7 @@ export class TickerSearchPageComponent {
   title = 'angular-crypto';
   addedTickerName = '';
   selectedTicker = '';
+  closeGraphSubject: Subject<boolean> = new Subject();
 
   addItem(ticker: string): void {
     this.addedTickerName = ticker;
@@ -22,6 +24,10 @@ export class TickerSearchPageComponent {
 
   showGraph(ticker: string): void {
     this.selectedTicker = ticker;
+  }
+
+  closeGraph(): void {
+    this.closeGraphSubject.next(true);
   }
 
   onCloseGraph(): void {

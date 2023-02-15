@@ -17,6 +17,7 @@ import { AddedTickersService } from 'src/app/services/added-tickers.service';
 export class CryptoListComponent implements OnInit, OnChanges {
   @Input() addedTickerName = '';
   @Output() selectTickerEvent = new EventEmitter<string>();
+  @Output() deleteTickerEvent = new EventEmitter();
   paginatedTickers: ITicker[] = [];
   selectedTicker = '';
   filter = '';
@@ -48,6 +49,7 @@ export class CryptoListComponent implements OnInit, OnChanges {
   deleteTicker(tickerToDelete: string): void {
     this.addedTickersService.deleteTicker(tickerToDelete);
     this.saveToLocalStorage();
+    this.deleteTickerEvent.emit();
   }
 
   selectTicker(tickerToSelect: string): void {

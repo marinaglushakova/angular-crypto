@@ -5,10 +5,12 @@
   <app-crypto-list
     [addedTickerName]="addedTickerName"
     (selectTickerEvent)="showGraph($event)"
+    (deleteTickerEvent)="closeGraph()"
   ></app-crypto-list>
   <app-graph
     *ngIf="selectedTicker"
     [tickerToShow]="selectedTicker"
+    [closeGraphSubject]="closeGraphSubject"
     (closeGraphEvent)="onCloseGraph()"
   ></app-graph>
 </div>

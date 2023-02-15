@@ -5,13 +5,20 @@
   </h3>
   <div
     #graph
-    class="flex items-end border-gray-600 border-b border-l h-64">
+    class="flex border-gray-600 border-b border-l h-64">
     <div
-      *ngFor="let column of normalizedGraph"
+      *ngFor="let column of normalizedGraph; let i = index"
       #column
-      class="bg-purple-800 border w-10"
-      [ngStyle]="{'height.%': column}"
-    ></div>
+      class="flex flex-col-reverse h-full items-center"
+    >
+      <div
+        class="bg-purple-800 border w-10"
+        [ngStyle]="{'height.%': column}"
+      ></div>
+      <span
+        class="text-gray-800 text-[9px]"
+      >{{ graphArray[i] }}</span>
+    </div>
   </div>
   <button
     (click)="onCloseGraphClick()"

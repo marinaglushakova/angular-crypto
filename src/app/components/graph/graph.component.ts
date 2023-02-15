@@ -1,5 +1,6 @@
 import {
   Component,
+  OnInit,
   OnChanges,
   Input,
   Output,
@@ -10,15 +11,18 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { TickerPriceService } from '../../services/ticker-price.service';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
 })
-export class GraphComponent implements OnChanges, AfterViewInit, OnDestroy {
+export class GraphComponent
+  implements OnInit, OnChanges, AfterViewInit, OnDestroy
+{
   @Input() tickerToShow: string;
+  @Input() closeGraphSubject: Subject<boolean>;
   @Output() closeGraphEvent = new EventEmitter();
   @ViewChild('graph') graphDiv: ElementRef;
   @ViewChild('column') columnDiv: ElementRef;
@@ -28,6 +32,12 @@ export class GraphComponent implements OnChanges, AfterViewInit, OnDestroy {
   maxGraphElements = 1;
 
   constructor(private tickerPriceService: TickerPriceService) {}
+
+  ngOnInit() {
+    this.closeGraphSubject.subscribe(() => {
+      this.onCloseGraphClick();
+    });
+  }
 
   ngOnChanges(changes: { tickerToShow: SimpleChange }): void {
     if (this.subscription) {
@@ -45,6 +55,7 @@ export class GraphComponent implements OnChanges, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.calculateMaxGraphElements);
     this.subscription.unsubscribe();
+    this.closeGraphSubject.unsubscribe();
   }
 
   onCloseGraphClick(): void {
