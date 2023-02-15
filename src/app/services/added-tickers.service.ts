@@ -5,7 +5,7 @@ import { ITicker } from '../model/ticker';
   providedIn: 'root',
 })
 export class AddedTickersService {
-  tickers: ITicker[];
+  tickers: ITicker[] = [];
 
   getTickers() {
     return this.tickers;
